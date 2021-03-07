@@ -34,9 +34,22 @@ exports.create = (req, res) => {
       });
   };
 
-// Retrieve all Collections from the database.
+//Retrieve objects (with condition) **********************
+//Retrieve all Collections from the database.
 exports.findAll = (req, res) => {
-  
+    const title = req.query.title;
+  var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
+
+  Collection.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving collections."
+      });
+    });
 };
 
 // Find a single Collection with an id
