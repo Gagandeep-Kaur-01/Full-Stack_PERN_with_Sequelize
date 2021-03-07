@@ -2,10 +2,37 @@ const db = require("../models");
 const Collection = db.collections;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Collection
+// Create a new Object ************************************
+//Create and Save a new Collection
 exports.create = (req, res) => {
+    console.log(req.body);
+    // Validate request
+    if (!req.body.title) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+      return;
+    }
   
-};
+    // Create a Collection
+    const collection = {
+      title: req.body.title,
+      description: req.body.description,
+      published: req.body.published ? req.body.published : false
+    };
+  
+    // Save Collection in the database
+    Collection.create(collection)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Collection."
+        });
+      });
+  };
 
 // Retrieve all Collections from the database.
 exports.findAll = (req, res) => {
