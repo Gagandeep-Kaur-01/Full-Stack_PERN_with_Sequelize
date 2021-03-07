@@ -33,3 +33,6 @@ class CollectionDataService {
 export default new CollectionDataService();
 
 // create a service that uses axios object above to send HTTP requests.
+/*
+ We call axios get, post, put, delete method corresponding to HTTP Requests: GET, POST, PUT, DELETE to make CRUD Operations.
+*/
