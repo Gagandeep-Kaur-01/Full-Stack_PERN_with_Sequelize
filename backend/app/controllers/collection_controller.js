@@ -68,10 +68,32 @@ exports.findOne = (req, res) => {
       });
   };
 
-// Update a Collection by the id in the request
+// Update an object ***************************************
+//Update a Collection by the id in the request
 exports.update = (req, res) => {
+    const id = req.params.id;
   
-};
+    Collection.update(req.body, {
+      where: { id: id }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "Collection was updated successfully."
+          });
+        } else {
+          res.send({
+            message: `Cannot update Collection with id=${id}. Maybe Collection was not found or req.body is empty!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error updating Collection with id=" + id
+        });
+      });
+  
+  };
 
 // Delete a Collection with the specified id in the request
 exports.delete = (req, res) => {
