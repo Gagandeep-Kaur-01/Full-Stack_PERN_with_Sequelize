@@ -141,7 +141,17 @@ exports.deleteAll = (req, res) => {
   
   };
 
-// Find all published Collections
+// Find all objects by condition **********************
+// Find all Collections with published = true:
 exports.findAllPublished = (req, res) => {
-  
-};
+    Collection.findAll({ where: { published: true } })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving collections."
+        });
+      });
+  };
