@@ -2,6 +2,11 @@ import React,  {Component } from "react";
 import { Link, Switch, Route } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import AddCollection from "./components/add-collection";
+import Collection from "./components/collection";
+import CollectionsList from "./components/collections-list" 
+
+
 class App extends Component {
   render() {
     return (
@@ -25,8 +30,10 @@ class App extends Component {
         </nav>
 
         <div className="container mt-3">
-          <Switch>
-            
+        <Switch>
+            <Route exact path={["/", "/collections"]} component={CollectionsList} /> 
+            <Route exact path="/add" component={AddCollection} />
+            <Route path="/collections/:id" component={Collection} /> 
           </Switch>
         </div>
       </div>
