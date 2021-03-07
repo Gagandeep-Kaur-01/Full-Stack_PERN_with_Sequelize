@@ -95,10 +95,32 @@ exports.update = (req, res) => {
   
   };
 
-// Delete a Collection with the specified id in the request
+// Delete an object **************************************
+//Delete a Collection with the specified id:
 exports.delete = (req, res) => {
+    const id = req.params.id;
   
-};
+    Collection.destroy({
+      where: { id: id }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "Collection was deleted successfully!"
+          });
+        } else {
+          res.send({
+            message: `Cannot delete Collection with id=${id}. Maybe Collection was not found!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Could not delete Collection with id=" + id
+        });
+      });
+  
+  };
 
 // Delete all Collections from the database.
 exports.deleteAll = (req, res) => {
