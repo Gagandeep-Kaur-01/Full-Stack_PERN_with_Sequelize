@@ -13,3 +13,8 @@ module.exports = (sequelize, Sequelize) => {
 
     return Collection;
 };
+
+/*
+Sequelize Model represents collections table in PostgreSQL database. 
+These columns will be generated automatically: id, title, description, published, createdAt, updatedAt.
+*/
