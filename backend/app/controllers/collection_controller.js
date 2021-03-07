@@ -52,10 +52,21 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Collection with an id
+// Retrieve a single object ******************************
+//Find a single Collection with an id
 exports.findOne = (req, res) => {
+    const id = req.params.id;
   
-};
+    Collection.findByPk(id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving Collection with id=" + id
+        });
+      });
+  };
 
 // Update a Collection by the id in the request
 exports.update = (req, res) => {
