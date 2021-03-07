@@ -122,10 +122,24 @@ exports.delete = (req, res) => {
   
   };
 
-// Delete all Collections from the database.
+// Delete all objects *********************************
+//Delete all Collections from the database
 exports.deleteAll = (req, res) => {
+    Collection.destroy({
+      where: {},
+      truncate: false
+    })
+      .then(nums => {
+        res.send({ message: `${nums} Collections were deleted successfully!` });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while removing all Collections."
+        });
+      });
   
-};
+  };
 
 // Find all published Collections
 exports.findAllPublished = (req, res) => {
